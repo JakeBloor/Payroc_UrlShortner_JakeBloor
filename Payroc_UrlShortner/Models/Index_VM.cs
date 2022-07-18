@@ -6,6 +6,5 @@ namespace Payroc_UrlShortner.Models
     {
         [Required]
         public string URL { get; set; }
-        public string Short { get; set; }
     }
 }

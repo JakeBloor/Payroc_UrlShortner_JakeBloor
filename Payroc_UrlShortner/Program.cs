@@ -1,13 +1,17 @@
 using Payroc_UrlShortner.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
+builder.Services.AddDbContext<URLDBContext>(
+    options => options.UseInMemoryDatabase(databaseName: "URLS"));
 
-builder.Services.AddSingleton<URLDBContext>();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -28,4 +32,20 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapFallback(RedirectURL);
+
 app.Run();
+
+static async Task RedirectURL(HttpContext httpContext)
+{
+    var db = httpContext.RequestServices.GetRequiredService<URLDBContext>();
+    var collection = db.Urls.ToList();
+
+    var path = httpContext.Request.Path.ToUriComponent().Trim('/');
+    var id = BitConverter.ToInt32(WebEncoders.Base64UrlDecode(path));
+    var entry = collection.Find(p => p.Id == id);
+
+    httpContext.Response.Redirect(entry?.URL ?? "/");
+
+    await Task.CompletedTask;
+}

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Payroc_UrlShortner.Data;
 using Payroc_UrlShortner.Models;
 using System.Diagnostics;
@@ -34,15 +35,14 @@ namespace Payroc_UrlShortner.Controllers
                 return View(vm);
             }
 
-
-
             var url = new Url
             {
-                URL = vm.URL,
-                Short = vm.Short
+                URL = vm.URL
             };
             _db.Urls.Add(url);
             _db.SaveChanges();
+
+            ViewData["Link"] = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}/{url.UrlChunk}";
 
             return View(vm);
         }
