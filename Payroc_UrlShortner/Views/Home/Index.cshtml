@@ -1,8 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Payroc_UrlShortner.Models.Index_VM
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@{
+    ViewData["Title"] = "URL Shortener";
+}
+ <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Simple URL Shortener</h1>
+        </div>
+        <div class="card-body" id="urlForm">
+        <p class="card-text">
+            Please enter the you would like to shorten bewlow.
+        </p>
+            <form enctype="application/x-www-form-urlencoded" method="POST" asp-controller="Home" asp-action"="Index">
+                <label class="form-lable" for="url">
+                    URL
+                </label>
+                <input type="url" name="url" cclass="form-control"/>
+                <button type="submit" class="btn btn-primary">Shorten</button>
+            </form>
+        </div>
+    </div>
+

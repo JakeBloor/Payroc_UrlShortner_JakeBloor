@@ -18,6 +18,12 @@ namespace Payroc_UrlShortner.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(Index_VM vm)
+        {
+            return View(vm);
+        }
+
         public IActionResult Privacy()
         {
             return View();
