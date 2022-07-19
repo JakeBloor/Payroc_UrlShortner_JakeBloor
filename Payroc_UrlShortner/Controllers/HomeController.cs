@@ -32,6 +32,7 @@ namespace Payroc_UrlShortner.Controllers
 
             if (String.IsNullOrEmpty(vm.URL) == true)
             {
+                ModelState.AddModelError("URL", "Please Enter a Valid URL.");
                 return View(vm);
             }
 

@@ -16,3 +16,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.vh-90{
+    height: 80vh !important;
+}

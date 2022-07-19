@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "URL Shortener";
 }
-<div class="card">
+<div class="card shadow">
     <div class="card-header">
         <h1 class="card-title">Simple URL Shortener</h1>
     </div>
@@ -12,13 +12,15 @@
             Please enter the URL you would like to shorten bewlow.
         </p>
         <form enctype="application/x-www-form-urlencoded" method="POST" asp-controller="Home" asp-action"="Index">
-            <label class="form-lable" for="url">
+            <div asp-validation-summary="ModelOnly"></div>
+            <label class="form-lable" asp-for="URL">
                 URL
             </label>
-            <input type="url" name="url" cclass="form-control" />
-            <button type="submit" class="btn btn-primary">Shorten</button>
+            <input asp-for="URL" type="url" class="form-control" />
+            <small><span asp-validation-for="URL" class="text-danger"></span></small><br/>
+            <button type="submit" class="btn btn-primary mx-auto text-center mt-2">Shorten</button>
         </form>
-        @if(ViewData["Link"] != null)
+        @if (ViewData["Link"] != null)
         {
             <div>
                 Here is your link <a class="btn btn-link" href="@ViewData["Link"].ToString()">@ViewData["Link"].ToString()</a>
