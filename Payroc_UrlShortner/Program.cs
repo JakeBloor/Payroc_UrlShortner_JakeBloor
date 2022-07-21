@@ -1,7 +1,6 @@
 using Payroc_UrlShortner.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.WebUtilities;
-using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 

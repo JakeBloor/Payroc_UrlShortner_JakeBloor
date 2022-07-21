@@ -17,6 +17,7 @@ namespace Payroc_UrlShortner.Controllers
             _db = db;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
